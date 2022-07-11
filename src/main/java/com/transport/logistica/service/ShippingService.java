@@ -97,22 +97,14 @@ public class ShippingService {
         responseDTO.setCepDestiny(localityDestiny.getCep());
 
         if(Objects.equals(localityOrigin.getDdd(), localityDestiny.getDdd())) {
-            val daysDelivery = calcPeriodDelivery(1);
-            responseDTO.setExpectedDeliveryDate(daysDelivery);
-
-            return responseDTO.getExpectedDeliveryDate();
+            return calcPeriodDelivery(1);
 
         }else if(Objects.equals(localityOrigin.getUf(), localityDestiny.getUf())) {
-            val daysDelivery = calcPeriodDelivery(3);
-            responseDTO.setExpectedDeliveryDate(daysDelivery);
-
-            return responseDTO.getExpectedDeliveryDate();
+            return calcPeriodDelivery(3);
 
         }else if(!Objects.equals(localityOrigin.getUf(), localityDestiny.getUf())) {
-            val daysDelivery = calcPeriodDelivery(10);
-            responseDTO.setExpectedDeliveryDate(daysDelivery);
+            return calcPeriodDelivery(10);
 
-            return responseDTO.getExpectedDeliveryDate();
         }
 
         return responseDTO.getExpectedDeliveryDate();
