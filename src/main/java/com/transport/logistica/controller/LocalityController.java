@@ -1,6 +1,6 @@
 package com.transport.logistica.controller;
 
-import com.transport.logistica.dto.LocalityDTO;
+import com.transport.logistica.request.object.LocalityObject;
 import com.transport.logistica.service.LocalityService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class LocalityController {
     private LocalityService localityService;
 
     @GetMapping("/{cep}")
-    public LocalityDTO findWeb(@PathVariable String cep) throws Exception {
+    public LocalityObject findWeb(@PathVariable String cep) throws Exception {
 
         return localityService.findRequestLocalityApiCep(cep);
     }
