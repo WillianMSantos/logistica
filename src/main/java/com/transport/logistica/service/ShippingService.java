@@ -62,25 +62,15 @@ public class ShippingService {
         responseDTO.setCepDestiny(localityDestiny.getCep());
 
         if(Objects.equals(localityOrigin.getDdd(), localityDestiny.getDdd())) {
-
-            double valueTotal = calculateShipping(requestDTO.getWeight(), 0.50);
-            responseDTO.setValueTotalShipping(valueTotal);
-
-            return responseDTO.getValueTotalShipping();
+            return calculateShipping(requestDTO.getWeight(), 0.50);
 
         }else if(Objects.equals(localityOrigin.getUf(), localityDestiny.getUf())) {
+            return calculateShipping(requestDTO.getWeight(), 0.75);
 
-            double valueTotal = calculateShipping(requestDTO.getWeight(), 0.75);
-            responseDTO.setValueTotalShipping(valueTotal);
-
-            return responseDTO.getValueTotalShipping();
 
         }else if(!Objects.equals(localityOrigin.getUf(), localityDestiny.getUf())) {
 
-            double valueTotal = buildValueWeight(requestDTO.getWeight());
-            responseDTO.setValueTotalShipping(valueTotal);
-
-            return responseDTO.getValueTotalShipping();
+            return buildValueWeight(requestDTO.getWeight());
         }
 
         return responseDTO.getValueTotalShipping();
