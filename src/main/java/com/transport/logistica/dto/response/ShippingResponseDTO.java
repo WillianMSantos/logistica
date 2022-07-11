@@ -5,7 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Data
 @Builder
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 public class ShippingResponseDTO {
 
     private double valueTotalShipping;
-    //private LocalDateTime expectedDeliveryDate;
+    private LocalDate expectedDeliveryDate;
     private String cepOrigin;
     private String cepDestiny;
 }

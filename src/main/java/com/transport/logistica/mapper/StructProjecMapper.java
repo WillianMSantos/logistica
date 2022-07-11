@@ -14,6 +14,7 @@ public class StructProjecMapper implements StructMapper {
                 .cepOrigin(shippingEntity.getCepOrigin())
                 .cepDestiny(shippingEntity.getCepDestiny())
                 .valueTotalShipping(shippingEntity.getValueTotalShipping())
+                .expectedDeliveryDate(shippingEntity.getExpectedDeliveryDate())
                 .build();
     }
 }

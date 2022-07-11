@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -38,8 +37,8 @@ public class ShippingEntity {
     private double valueTotalShipping;
 
     @Column(name = "EXPECT_DELIVERY_DATE")
-    private LocalDateTime expectedDeliveryDate;
+    private LocalDate expectedDeliveryDate;
 
     @Column(name = "CONSULTATION_DATE")
-    private LocalDateTime consultationDate;
+    private LocalDate consultationDate;
 }

@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,12 +37,15 @@ public class ShippingService {
 
         ShippingEntity shippingToSave = new ShippingEntity();
         double valueTotal = valueShipping(requestDTO);
+        LocalDate dateDelivery = dateShipping(requestDTO);
 
         shippingToSave.setCepOrigin(requestDTO.getCepOrigin());
         shippingToSave.setCepDestiny(requestDTO.getCepDestiny());
         shippingToSave.setWeight(requestDTO.getWeight());
         shippingToSave.setNameRecipient(requestDTO.getName());
         shippingToSave.setValueTotalShipping(valueTotal);
+        shippingToSave.setConsultationDate(LocalDate.now());
+        shippingToSave.setExpectedDeliveryDate(dateDelivery);
 
         return shippingRepository.save(shippingToSave);
     }
@@ -79,6 +84,45 @@ public class ShippingService {
         }
 
         return responseDTO.getValueTotalShipping();
+    }
+
+    private LocalDate dateShipping(ShippingRequestDTO requestDTO) throws Exception {
+
+        val localityOrigin = new LocalityRequest().execute(requestDTO.getCepOrigin());
+        val localityDestiny = new LocalityRequest().execute(requestDTO.getCepDestiny());
+
+        val responseDTO = new ShippingResponseDTO();
+
+        responseDTO.setCepOrigin(localityOrigin.getCep());
+        responseDTO.setCepDestiny(localityDestiny.getCep());
+
+        if(Objects.equals(localityOrigin.getDdd(), localityDestiny.getDdd())) {
+            val daysDelivery = calcPeriodDelivery(1);
+            responseDTO.setExpectedDeliveryDate(daysDelivery);
+
+            return responseDTO.getExpectedDeliveryDate();
+
+        }else if(Objects.equals(localityOrigin.getUf(), localityDestiny.getUf())) {
+            val daysDelivery = calcPeriodDelivery(3);
+            responseDTO.setExpectedDeliveryDate(daysDelivery);
+
+            return responseDTO.getExpectedDeliveryDate();
+
+        }else if(!Objects.equals(localityOrigin.getUf(), localityDestiny.getUf())) {
+            val daysDelivery = calcPeriodDelivery(10);
+            responseDTO.setExpectedDeliveryDate(daysDelivery);
+
+            return responseDTO.getExpectedDeliveryDate();
+        }
+
+        return responseDTO.getExpectedDeliveryDate();
+    }
+
+    private LocalDate calcPeriodDelivery(Integer day){
+        Period days = Period.ofDays(day);
+        LocalDate localDateConsult = LocalDate.now();
+
+        return localDateConsult.plus(days);
     }
 
     public ShippingResponseDTO findShipping(Integer id) {
