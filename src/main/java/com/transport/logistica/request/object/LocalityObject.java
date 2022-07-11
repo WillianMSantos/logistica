@@ -1,4 +1,4 @@
-package com.transport.logistica.dto;
+package com.transport.logistica.request.object;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocalityDTO {
+public class LocalityObject {
 
     @JsonProperty(value = "cep")
     private String cep;

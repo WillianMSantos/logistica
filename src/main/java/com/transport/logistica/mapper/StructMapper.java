@@ -1,9 +1,12 @@
 package com.transport.logistica.mapper;
 
-import com.transport.logistica.dto.LocalityDTO;
+import com.transport.logistica.request.object.LocalityObject;
+import com.transport.logistica.dto.request.ShippingRequestDTO;
+import com.transport.logistica.dto.response.ShippingResponseDTO;
 import com.transport.logistica.model.LocalityEntity;
+import com.transport.logistica.model.ShippingEntity;
 
 public interface StructMapper {
 
-    LocalityEntity toLocalityModel(LocalityDTO localityDTO);
+    ShippingResponseDTO toShippingDto(ShippingEntity shippingEntity);
 }
