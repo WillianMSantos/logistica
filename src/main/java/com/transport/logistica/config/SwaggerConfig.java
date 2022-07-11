@@ -27,7 +27,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("Pedidos API")
+                .title("Logistica API")
                 .description("API para simular um frete")
                 .version("1.0")
                 .contact(contact())
